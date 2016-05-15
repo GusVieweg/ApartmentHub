@@ -7,16 +7,18 @@ from kivy.graphics import Color, Rectangle
 from kivy.animation import Animation, AnimationTransition
 from kivy.uix.screenmanager import ScreenManager, Screen 
 from kivy.lang import Builder
+from kivy.config import Config
 
 from welcomeScreen import WelcomeScreen
 from anotherScreen import AnotherScreen
 
 #kivy.require("1.9.2")
 Window.fullscreen = 'auto'
+Config.set('input','mouse','mouse,disable_multitouch')
 
 sm = ScreenManager()
 sm.add_widget(WelcomeScreen(name='welcome'))
-sm.add_widget(AnotherScreen(name='another'))
+sm.add_widget(AnotherScreen(name='calendar'))
 
 class MainscreenApp(App):
     def build(self):
