@@ -9,18 +9,18 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 from datetime import datetime
 
-class WelcomeScreen(Screen):
+class FeelingsScreen(Screen):
     def __init__(self, **kwargs):
         #make sure we aren't overriding any important functionality
-        super(WelcomeScreen, self).__init__(**kwargs)
+        super(FeelingsScreen, self).__init__(**kwargs)
 
         self._keyboard = Window.request_keyboard(None, self)
         self._keyboard.bind(on_key_down=self.on_keyboard_down)
 
         f = FloatLayout()
-        greeting_label = Label( text="Welcome home!",
+        greeting_label = Label( text="Feelings Screen!",
                                 font_size=100,
-                                color=[1,1,1,0],
+                                color=[1,0,1,1],
                                 pos=(f.x/2, (f.y/2 - 100)) )
         f.add_widget(greeting_label)
 
@@ -35,13 +35,9 @@ class WelcomeScreen(Screen):
         self.add_widget(f)
 
     def on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        print("Key pressed was " + keycode[1])
-        if keycode[1] == 'right':
-            self.manager.transition.direction = 'left'
-            self.manager.current = 'calendar'
-        #elif keycode[1] == 'left':
-        #    self.manager.transition.direction = 'right'
-        #    self.manager.current = 'feelings'
-        else:
-            return False
-        return True
+            if keycode[1] == 'right':
+                self.manager.transition.direction='left'
+                self.manager.current='welcome'
+            else:
+                return False
+            return True

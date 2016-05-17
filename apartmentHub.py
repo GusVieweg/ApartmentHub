@@ -10,18 +10,19 @@ from kivy.lang import Builder
 from kivy.config import Config
 
 from welcomeScreen import WelcomeScreen
-from anotherScreen import AnotherScreen
+from calendarScreen import CalendarScreen
+from feelingsScreen import FeelingsScreen
 
 #kivy.require("1.9.2")
 Window.fullscreen = 'auto'
 Config.set('input','mouse','mouse,disable_multitouch')
 
-sm = ScreenManager()
-sm.add_widget(WelcomeScreen(name='welcome'))
-sm.add_widget(AnotherScreen(name='calendar'))
-
 class MainscreenApp(App):
     def build(self):
+    	sm = ScreenManager()
+    	sm.add_widget(WelcomeScreen(name='welcome'))
+    	sm.add_widget(CalendarScreen(name='calendar'))
+    	sm.add_widget(FeelingsScreen(name='feelings'))
         return sm
 
 if __name__ == '__main__':
