@@ -18,12 +18,13 @@ Window.fullscreen = 'auto'
 Config.set('input','mouse','mouse,disable_multitouch')
 
 class MainscreenApp(App):
-    def build(self):
-    	sm = ScreenManager()
-    	sm.add_widget(WelcomeScreen(name='welcome'))
-    	sm.add_widget(CalendarScreen(name='calendar'))
-    	sm.add_widget(FeelingsScreen(name='feelings'))
-        return sm
+	def build(self):
+		sm = ScreenManager()
+		sm.add_widget(WelcomeScreen(name='welcome'))
+		sm.add_widget(CalendarScreen(name='calendar'))
+		sm.add_widget(FeelingsScreen(name='feelings'))
+		sm.current = 'welcome'
+		return sm
 
 if __name__ == '__main__':
-    MainscreenApp().run()
+	MainscreenApp().run()

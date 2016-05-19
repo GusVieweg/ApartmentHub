@@ -7,6 +7,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.animation import Animation, AnimationTransition
 from kivy.uix.screenmanager import ScreenManager, Screen 
 
+from switchbutton import SwitchButton 
 from datetime import datetime
 
 class WelcomeScreen(Screen):
@@ -14,34 +15,26 @@ class WelcomeScreen(Screen):
         #make sure we aren't overriding any important functionality
         super(WelcomeScreen, self).__init__(**kwargs)
 
-        self._keyboard = Window.request_keyboard(None, self)
-        self._keyboard.bind(on_key_down=self.on_keyboard_down)
+        self.f = FloatLayout()
 
-        f = FloatLayout()
         greeting_label = Label( text="Welcome home!",
                                 font_size=100,
-                                color=[1,1,1,0],
-                                pos=(f.x/2, (f.y/2 - 100)) )
-        f.add_widget(greeting_label)
+                                color=[1,1,1,1],
+                                pos=(self.f.x/2, (self.f.y/2 - 100)) )
+        self.f.add_widget(greeting_label)
 
         colorAnim = Animation( color=[1.0, 1.0, 1.0, 1.0], 
                                transition=AnimationTransition.in_out_quad ) 
-        moveAnim =  Animation( pos=(f.x/2, f.y/2),
+        moveAnim =  Animation( pos=(self.f.x/2, self.f.y/2),
                                transition=AnimationTransition.in_out_quad )
         colorAnim.start(greeting_label)
         moveAnim.start(greeting_label)
 
-        f.color=[(16.0/255.0), (23.0/255.0), (22.0/255.0), 1] #warm gray, converted to Kivy
-        self.add_widget(f)
+        self.f.color=[(16.0/255.0), (23.0/255.0), (22.0/255.0), 1] #warm gray, converted to Kivy
+        self.add_widget(self.f)
 
-    def on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        print("Key pressed was " + keycode[1])
-        if keycode[1] == 'right':
-            self.manager.transition.direction = 'left'
-            self.manager.current = 'calendar'
-        #elif keycode[1] == 'left':
-        #    self.manager.transition.direction = 'right'
-        #    self.manager.current = 'feelings'
-        else:
-            return False
-        return True
+    def on_pre_enter(self):
+        self.sb = SwitchButton(self.manager, 'right', 'calendar')
+        self.sb2 = SwitchButton(self.manager, 'left', 'feelings')
+        self.f.add_widget(self.sb)
+        self.f.add_widget(self.sb2)
